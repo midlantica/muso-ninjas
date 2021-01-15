@@ -14,8 +14,8 @@
 
 <style>
   .content {
-    margin: 0 auto;
-    min-width: 50rem;
+    margin: 2rem auto;
+    max-width: 40rem;
     padding: 0 2rem;
   }
 </style>

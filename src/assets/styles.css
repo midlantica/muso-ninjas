@@ -3,9 +3,9 @@
 
 /* variables */
 :root {
-  --primary: #4f515a;
-  --secondary: #ebebeb;
-  --warning: #da0f41;
+  --primary: hsl(229, 7%, 33%);
+  --secondary: hsl(0, 0%, 88%);
+  --warning: hsl(0deg 100% 44%);
 }
 
 /* base styles  */
@@ -17,7 +17,7 @@
   box-sizing: border-box;
 }
 body {
-  background: #fafafa;
+  background: hsl(0, 0%, 90%);
 }
 a {
   text-decoration: none;
@@ -31,7 +31,8 @@ button, .btn {
   padding: 8px 12px;
   font-weight: 600;
   cursor: pointer;
-  display: inline-block;
+  align-self: flex-end;
+  margin: 1rem 0 0;
 }
 button:hover, .btn:hover {
   background: var(--primary);
@@ -48,26 +49,28 @@ button:disabled {
 form {
   max-width: 400px;
   margin: 0 auto;
-  padding: 30px;
+  padding: 2rem 2.5rem;
   border-radius: 8px;
-  box-shadow: 1px 2px 3px rgba(50,50,50,0.05);
+  box-shadow: 1px 2px 3px hsla(0, 0%, 15%, 0.096);
   border: 1px solid  var(--secondary);
   background: white;
+  display: flex;
+  flex-direction: column;
 }
 input, textarea {
-  border: 0;
-  border-bottom: 1px solid var(--secondary);
+  border: 1px solid var(--secondary);
+  border-radius: .5rem;
   padding: 10px;
   outline: none;
   display: block;
   width: 100%;
   box-sizing: border-box;
-  margin: 20px auto;
+  margin: 1rem auto 0;
 }
 
 /* error text */
 .error {
   color: var(--warning);
   font-size: 14px;
-  margin: 16px 0;
+  margin: .5rem 0 .5rem;
 }
