@@ -1,10 +1,13 @@
 <template>
   <div class="navbar">
     <nav>
-      <img class="ninja" src="../assets/ninja.gif">
-      <h1><router-link to="{ name: 'Home' }">Muso Ninjas</router-link></h1>
+      <router-link :to="{ name: 'Home' }">
+        <img class="ninja" src="../assets/ninja.gif">
+      </router-link>
+      <h1><router-link :to="{ name: 'Home' }">Muso Ninjas</router-link></h1>
       <div class="links">
         <div v-if="user">
+          <router-link :to="{name: 'CreatePlaylist'}">Create Playlist</router-link>
           <button class="btn" @click.prevent="handleClick">Logout</button>
         </div>
         <div v-else>
@@ -51,7 +54,7 @@
   }
   .navbar {
     padding: 1rem 2.5rem 1rem 1rem;
-    margin-bottom: 60px;
+    margin-bottom: 1rem;
     background: hsl(40, 87%, 59%);
     background: linear-gradient(180deg,
       hsl(40, 87%, 59%) 0%,
@@ -66,7 +69,7 @@
   }
   nav img.ninja {
     max-height: 130px;
-    margin: -1rem -0.5rem -1.4rem;
+    margin: -1rem -0.5rem -1.8rem;
   }
   nav h1 {
     margin-left: 20px;
