@@ -15,31 +15,47 @@
 
     <!-- song list -->
     <div class="song-list">
-      <p>Song list here</p>
+      <div v-if="!playlist.songs.length">No songs have been added to this playlist</div>
+      <div v-for="song in playlist.songs" :key="song.id" class="single-song">
+        <div class="details">
+          <h3>{{song.title}}</h3>
+          <p>{{song.artist}}</p>
+        </div>
+        <button v-if="ownership">Delete</button>
+      </div>
+      <AddSong v-if="ownership" :playlist="playlist" />
     </div>
 
   </div>
 </template>
 
 <script>
+import AddSong from '@/components/AddSong.vue'
+import useStorage from '@/composables/useStorage'
 import useDocument from '@/composables/useDocument'
 import getDocument from '@/composables/getDocument'
 import getUser from '@/composables/getUser'
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default {
   props: ['id'],
+  components: { AddSong },
   setup(props) {
     const { error, document: playlist } = getDocument('playlists', props.id)
     const { user } = getUser()
     const { deleteDoc } = useDocument('playlists', props.id)
+    const { deleteImage } = useStorage()
+    const router = useRouter()
 
     const ownership = computed(() => {
       return playlist.value && user.value && user.value.uid == playlist.value.userId
     })
 
     const handleDelete = async () => {
+      await deleteImage(playlist.value.filePath)
       await deleteDoc()
+      router.push({ name: 'Home' })
     }
 
     // >>>>>>>>>>>>>
@@ -86,5 +102,13 @@ export default {
   }
   .description {
     text-align: left;
+  }
+  .single-song {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--secondary);
+    margin-bottom: 1rem;
+    padding: 1rem 0rem;
   }
 </style>
