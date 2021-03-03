@@ -15,13 +15,13 @@
 
     <!-- song list -->
     <div class="song-list">
-      <div v-if="!playlist.songs.length">No songs have been added to this playlist</div>
+      <div v-if="!playlist.songs.length">No songs have been added to this playlist yet.</div>
       <div v-for="song in playlist.songs" :key="song.id" class="single-song">
         <div class="details">
           <h3>{{song.title}}</h3>
           <p>{{song.artist}}</p>
         </div>
-        <button v-if="ownership">Delete</button>
+        <button v-if="ownership" @click="handleDeleteSong(song.id)">Delete</button>
       </div>
       <AddSong v-if="ownership" :playlist="playlist" />
     </div>
@@ -44,7 +44,7 @@ export default {
   setup(props) {
     const { error, document: playlist } = getDocument('playlists', props.id)
     const { user } = getUser()
-    const { deleteDoc } = useDocument('playlists', props.id)
+    const { deleteDoc, updateDoc } = useDocument('playlists', props.id)
     const { deleteImage } = useStorage()
     const router = useRouter()
 
@@ -58,8 +58,14 @@ export default {
       router.push({ name: 'Home' })
     }
 
+    const handleDeleteSong = async (id) => {
+      const songs = playlist.value.songs.filter((song) => song.id != id)
+      await updateDoc({ songs: songs })
+      console.log("Songs deleted", songs)
+    }
+
     // >>>>>>>>>>>>>
-    return { error, playlist, ownership, handleDelete }
+    return { error, playlist, ownership, handleDelete, handleDeleteSong }
   }
 }
 </script>
@@ -72,7 +78,7 @@ export default {
   }
   .cover {
     overflow: hidden;
-    border-radius: 20px;
+    border-radius: .75rem;
     position: relative;
     padding: 160px;
   }
@@ -85,6 +91,8 @@ export default {
     min-height: 100%;
     max-width: 200%;
     max-height: 200%;
+    object-fit: cover;
+    width: 100%;
   }
   .playlist-info {
     text-align: center;
