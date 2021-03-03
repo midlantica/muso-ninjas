@@ -43,12 +43,14 @@ export default {
     max-width: 100px;
     max-height: 100px;
     overflow: hidden;
-    border-radius: 10px;
+    border-radius: .35rem;
   }
   img {
     max-width: 150%;
     max-height: 150%;
     display: block;
+    object-fit: cover;
+    width: 100%;
   }
   .info {
     margin: 0 30px;

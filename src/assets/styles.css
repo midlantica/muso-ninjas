@@ -39,6 +39,7 @@ button, .btn {
     hsl(49, 87%, 73%) 30%,
     hsl(63, 58%, 94%) 100%);
   outline: none;
+  display: inline-block;
 }
 button:hover, .btn:hover {
   /* color: white; */
